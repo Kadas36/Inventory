@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Item List</title>
+</head>
+<body>
+  {{title}}<br>
+  
+  <form method='POST' action=''>{% csrf_token %}
+    {{form}}
+        <input type="submit" value='Search'/>
+  </form>
+  <br>
+	
+	<table class='table'>
+        <thead>
+          <tr>
+            <th>COUNT</th>
+            <th>CATEGORY</th>
+            <th>ITEM NAME</th>
+            <th>QUANTITY IN STORE</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+      {% for instance in queryset %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.category}}</td>
+            <td><a href="{% url 'update_items' instance.id %}">{{instance.product_name}}</a></td> 
+            <td>{{instance.quantity}}</td>
+            <td><a href="{% url 'delete_items' instance.id %}">Delete</a></td>
+          </tr>
+      {% endfor %}
+    </table>
+	
+
+</body>
+</html>
