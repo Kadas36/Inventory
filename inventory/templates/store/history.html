@@ -1,0 +1,9 @@
+<form method='POST' action=''>
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value='Search'/>
+</form>
+
+{% for history in queryset %}
+    <h1>{{history}}</h1>
+{% endfor %}

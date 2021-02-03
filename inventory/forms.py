@@ -1,5 +1,5 @@
 from django import forms
-from .models import Stock
+from .models import Stock,Category
 
 class StockForm(forms.ModelForm):
   class Meta:
@@ -30,6 +30,10 @@ class StockForm(forms.ModelForm):
         raise forms.ValidationError(str(product_name) + ' is already created')
     return product_name
 
+class CategoryCreateForm(forms.ModelForm):
+	class Meta:
+		model = Category
+		fields = ['name']
 
 class StockSearchForm(forms.ModelForm):
    class Meta:

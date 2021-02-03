@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Stock
-from .forms import StockForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm
+from .forms import StockForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm,CategoryCreateForm
 from django.contrib import messages
 from simple_history.utils import update_change_reason
 
@@ -21,6 +21,17 @@ def add_items(request):
 		"title":"Add Item"
 	}    
 	return render(request, 'store/add_item.html', context)
+
+def add_category(request):
+	form = CategoryCreateForm(request.POST or None)
+	if form.is_valid():
+		form.save()
+		messages.success(request, 'Successfully Created')
+		return redirect('/list_item/')
+	context = {
+		"form": form,
+	}
+	return render(request, "store/add_item.html", context)
 
 def list_item(request):
     title = 'List of Items'
@@ -126,5 +137,20 @@ def reorder_level(request, pk):
 		}
 	return render(request, "store/add_item.html", context)    
 
+
+def list_history(request):
+	queryset = Stock.history.all()
+
+	form = StockSearchForm(request.POST or None)
+	if request.method == 'POST':
+		queryset = Stock.history.filter(
+								product_name__icontains=form['product_name'].value()
+								)
+		
+	context = {
+		'queryset': queryset,
+		'form': form
+	}
+	return render(request, 'store/history.html', context)
 
 
