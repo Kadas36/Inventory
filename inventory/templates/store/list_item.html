@@ -5,8 +5,9 @@
 {% block content %}
 {{block.super}}
 <body>
-  {{title}}<br>
-  
+  <div class="text__header" style="margin-top: 100px;">
+    <h1 class="text-center">ITEM LIST</h1>  
+  </div>
   <div class="list_table">
     {% if messages %}
         <ul class="messages">
