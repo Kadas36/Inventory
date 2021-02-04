@@ -1,0 +1,136 @@
+{% load bootstrap4 %}
+{% load static%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block styles %}
+      {% bootstrap_css %}
+      <link rel="shortcut icon" href="#">
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!------ Include the above in your HEAD tag ---------->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% endblock %}
+    <title>Inventory</title>
+  </head>
+  <body class = "preload">
+    <header class="header">
+        <button class="header__button" id="btnNav" type="button">
+            <i class="material-icons">menu</i>
+        </button>
+    </header>
+
+    <nav class="nav">
+        <div class="nav__links">
+            <a href="#" class="nav__link">
+                <i class="material-icons">dashboard</i>
+                Database
+            </a>
+
+            <a href="#" class="nav__link">
+              <i class="material-icons">history</i>
+              History
+            </a>
+
+            <a href="#" class="nav__link nav__link--active">
+                <i class="material-icons">source</i>
+                Projects
+            </a>
+
+            <a href="#" class="nav__link">
+                <i class="material-icons">lock</i>
+                logout
+            </a>
+
+            <a href="#" class="nav__link">
+                <i class="material-icons">person</i>
+                Profile
+            </a>
+        </div>
+        <div class="nav__overlay"></div>
+    </nav>
+
+    <main>
+      <div class="main">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div id="MiCarousel" class="carousel slide" data-ride="carousel">
+                          <ol class="carousel-indicators">
+                              <li data-target="#MiCarousel" data-slide-to="0" class="carousel-pagination active"></li>
+                              <li data-target="#MiCarousel" data-slide-to="1" class="carousel-pagination"></li>
+                              <li data-target="#MiCarousel" data-slide-to="2" class="carousel-pagination"></li>
+                          </ol>
+                          <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                  <div class="row">
+                                      <div class="col-md-8 div-l">
+                                          <div class="carousel-img" style="background-image: url({% static "images/background.jpg" %});">
+                                              <h1 class="carousel-title"></h1>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-4 div-r text-center">                                 
+                                        <div class="carousel__text">
+                                          <h2>TIRED OF ALL THE <br> BOOK WORK?</h2>
+                                        </div>
+                                      </div>
+                                  </div>                                
+                              </div>
+                              <div class="carousel-item">
+                                  <div class="row">
+                                      <div class="col-md-6 div-l">
+                                          <div class="carousel-img" style="background-image: url();">
+                                              <h1 class="carousel-title"></h1>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6 div-r">
+                                          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tenetur officiis voluptatem vel blanditiis. Nam enim quidem debitis aliquid maxime perferendis repudiandae similique, explicabo, quam minus tenetur cupiditate maiores ea.</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="carousel-item">
+                                  <div class="row">
+                                      <div class="col-md-6 div-l">
+                                          <div class="carousel-img" style="background-image: url();">
+                                              <h1 class="carousel-title"></h1>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6 div-r">
+                                          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tenetur officiis voluptatem vel blanditiis. Nam enim quidem debitis aliquid maxime perferendis repudiandae similique, explicabo, quam minus tenetur cupiditate maiores ea.</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <a class="carousel-control-prev carousel-controls" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="carousel-control-next carousel-controls" href="#carouselExampleIndicators" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </main>
+    {% block content %}
+    {%endblock%}
+    {% block scripts %}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      {% bootstrap_javascript %}
+      <script type="text/javascript" src="{%static 'js/script.js'%}"></script>
+    {% endblock %}
+  </body>
+</html>

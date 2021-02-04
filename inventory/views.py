@@ -7,7 +7,7 @@ from simple_history.utils import update_change_reason
 # Create your views here.
 
 def store_home(request):
-    return render(request, 'store/home.html')
+    return render(request, 'store/base.html')
 
 def add_items(request):
 	form = StockForm(request.POST or None)
