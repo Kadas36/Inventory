@@ -3,18 +3,17 @@ from .models import Stock
 from .forms import StockForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm,CategoryCreateForm
 from django.contrib import messages
 from simple_history.utils import update_change_reason
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def store_home(request):
-    return render(request, 'store/base.html')
-
+@login_required(login_url='/accounts/login/')
 def add_items(request):
 	form = StockForm(request.POST or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Successfully Saved')
-		return redirect('/list_item/')
+		return redirect('/')
 
 	context = {
 		"form":form,
@@ -22,17 +21,19 @@ def add_items(request):
 	}    
 	return render(request, 'store/add_item.html', context)
 
+@login_required(login_url='/accounts/login/')
 def add_category(request):
 	form = CategoryCreateForm(request.POST or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Successfully Created')
-		return redirect('/list_item/')
+		return redirect('/')
 	context = {
 		"form": form,
 	}
 	return render(request, "store/add_item.html", context)
 
+@login_required(login_url='/accounts/login/')
 def list_item(request):
     title = 'List of Items'
     form = StockSearchForm(request.POST or None)
@@ -50,6 +51,7 @@ def list_item(request):
     }
     return render(request, "store/list_item.html", context)  
 
+@login_required(login_url='/accounts/login/')
 def update_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     form = StockUpdateForm(instance=queryset)
@@ -58,19 +60,20 @@ def update_items(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Saved')
-            return redirect('/list_item/')
+            return redirect('/')
 
     context = {
         'form':form
     }
     return render(request, 'store/add_item.html', context) 
 
+@login_required(login_url='/accounts/login/')
 def delete_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     if request.method == 'POST':
         queryset.delete()
         messages.success(request, 'Item deleted')
-        return redirect('/list_item/')
+        return redirect('/')
     return render(request, 'store/delete_items.html')    
 
 def stock_detail(request, pk):
@@ -80,6 +83,7 @@ def stock_detail(request, pk):
 	}
 	return render(request, "store/stock_detail.html", context)  
 
+@login_required(login_url='/accounts/login/')
 def issue_items(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = IssueForm(request.POST or None, instance=queryset)
@@ -91,8 +95,7 @@ def issue_items(request, pk):
 		instance.save()
 
 		return redirect('/stock_detail/'+str(instance.id))
-		# return HttpResponseRedirect(instance.get_absolute_url())
-
+		
 	context = {
 		"title": 'Issue ' + str(queryset.product_name),
 		"queryset": queryset,
@@ -102,7 +105,7 @@ def issue_items(request, pk):
 	return render(request, "store/add_item.html", context)
 
 
-
+@login_required(login_url='/accounts/login/')
 def receive_items(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = ReceiveForm(request.POST or None, instance=queryset)
@@ -113,7 +116,7 @@ def receive_items(request, pk):
 		messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.product_name)+"s now in Store")
 
 		return redirect('/stock_detail/'+str(instance.id))
-		# return HttpResponseRedirect(instance.get_absolute_url())
+		
 	context = {
 			"title": 'Reaceive ' + str(queryset.product_name),
 			"instance": queryset,
@@ -122,6 +125,7 @@ def receive_items(request, pk):
 		}
 	return render(request, "store/add_item.html", context)
 
+@login_required(login_url='/accounts/login/')
 def reorder_level(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	form = ReorderLevelForm(request.POST or None, instance=queryset)
@@ -137,7 +141,7 @@ def reorder_level(request, pk):
 		}
 	return render(request, "store/add_item.html", context)    
 
-
+@login_required(login_url='/accounts/login/')
 def list_history(request):
 	queryset = Stock.history.all()
 
@@ -148,7 +152,7 @@ def list_history(request):
 								)
 		
 	context = {
-		'queryset': queryset,
+		'historyset': queryset,
 		'form': form
 	}
 	return render(request, 'store/history.html', context)

@@ -1,9 +1,54 @@
-<form method='POST' action=''>
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value='Search'/>
-</form>
+{%extends 'store/base.html'%}
+{% load bootstrap4 %}
+{% load static%}
 
-{% for history in queryset %}
-    <h1>{{history}}</h1>
-{% endfor %}
+{% block content %}
+{{block.super}}
+<body>
+  {{title}}<br>
+  
+  <div class="list_table">
+    {% if messages %}
+        <ul class="messages">
+               {% for message in messages %}
+                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+               {% endfor %}
+       </ul>
+    {% endif %}
+    
+    <form method='POST' action='' class="mt-2 mb-2 ml-4">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value='Search'/>
+    </form>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr style="background-color: #101820FF; color: #fff;" class="text-center">
+          <th>COUNT</th>
+          <th>CATEGORY</th>
+          <th>ITEM NAME</th>
+          <th>Last Updated</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      {% for instance in historyset %}
+          <tr class="text-center">
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.category}}</td>
+            <td><a href="{% url 'update_items' instance.id %}">{{instance.product_name}}</a></td> 
+            <td>{{instance.last_updated}}</td>
+            <td><a href="{% url 'delete_items' instance.id %}"><i class="material-icons">delete</i></a></td>
+          </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+
+
+<!-- {% for history in historyset %}
+    <h1>{{history.product_name}}</h1>
+    <h1>{{history.quantity}}</h1>
+{% endfor %} -->
+
+{% endblock %}

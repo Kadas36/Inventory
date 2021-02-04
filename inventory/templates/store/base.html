@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% block styles %}
       {% bootstrap_css %}
-      <link rel="shortcut icon" href="#">
       <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <!------ Include the above in your HEAD tag ---------->
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
-    <title>Inventory</title>
+    {%if title%}
+        <title>{{title}}</title>
+    {%else%}
+      <title>Stoinvent</title>    
+    {%endif%}
   </head>
   <body class = "preload">
     <header class="header">
@@ -29,22 +29,22 @@
 
     <nav class="nav">
         <div class="nav__links">
-            <a href="#" class="nav__link">
+            <a href="{% url 'list_items' %}" class="nav__link nav__link--active">
                 <i class="material-icons">dashboard</i>
-                Database
+                Home
             </a>
 
-            <a href="#" class="nav__link">
+            <a href="{% url 'add_items' %}" class="nav__link">
+              <i class="material-icons">add_task</i>
+              Add Items
+            </a>
+
+            <a href="{% url 'history' %}" class="nav__link">
               <i class="material-icons">history</i>
               History
             </a>
 
-            <a href="#" class="nav__link nav__link--active">
-                <i class="material-icons">source</i>
-                Projects
-            </a>
-
-            <a href="#" class="nav__link">
+            <a href="{% url 'logout' %}" class="nav__link">
                 <i class="material-icons">lock</i>
                 logout
             </a>
@@ -71,12 +71,12 @@
                           <div class="carousel-inner">
                             <div class="carousel-item active">
                                   <div class="row">
-                                      <div class="col-md-8 div-l">
+                                      <div class="col-md-7 div-l">
                                           <div class="carousel-img" style="background-image: url({% static "images/background.jpg" %});">
                                               <h1 class="carousel-title"></h1>
                                           </div>
                                       </div>
-                                      <div class="col-md-4 div-r text-center">                                 
+                                      <div class="col-md-5 div-r text-center">                                 
                                         <div class="carousel__text">
                                           <h2>TIRED OF ALL THE <br> BOOK WORK?</h2>
                                         </div>
@@ -86,24 +86,28 @@
                               <div class="carousel-item">
                                   <div class="row">
                                       <div class="col-md-6 div-l">
-                                          <div class="carousel-img" style="background-image: url();">
+                                          <div class="carousel-img" style="background-image: url({% static "images/avoid.jpg" %});">
                                               <h1 class="carousel-title"></h1>
                                           </div>
                                       </div>
                                       <div class="col-md-6 div-r">
-                                          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tenetur officiis voluptatem vel blanditiis. Nam enim quidem debitis aliquid maxime perferendis repudiandae similique, explicabo, quam minus tenetur cupiditate maiores ea.</p>
+                                        <div class="carousel__text">
+                                          <h2>THEN AVOID ALL THE <br> HUSTLE</h2>
+                                        </div>
                                       </div>
                                   </div>
                               </div>
                               <div class="carousel-item">
                                   <div class="row">
                                       <div class="col-md-6 div-l">
-                                          <div class="carousel-img" style="background-image: url();">
+                                          <div class="carousel-img" style="background-image: url({% static "images/work.jpg" %});">
                                               <h1 class="carousel-title"></h1>
                                           </div>
                                       </div>
                                       <div class="col-md-6 div-r">
-                                          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A tenetur officiis voluptatem vel blanditiis. Nam enim quidem debitis aliquid maxime perferendis repudiandae similique, explicabo, quam minus tenetur cupiditate maiores ea.</p>
+                                        <div class="carousel__text">
+                                          <h2><span>STOINVENT</span> <br> got you covered</h2>
+                                        </div>
                                       </div>
                                   </div>
                               </div>
@@ -124,6 +128,54 @@
     </main>
     {% block content %}
     {%endblock%}
+    <!-- Footer -->
+	<section id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Quick links</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>About</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Support</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Troubleshooting</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Report a Bug</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>Get Help</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h5>Company</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Blog</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Status</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Contact US</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+				</div>
+				<hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p>STOINVENT helps with all your inventory work. STOINVENT making life better.</p>
+					<p class="h6">© All right Reversed.<a class="text-green ml-2" style="color: blue;" href="https://github.com/Kadas36">kadas36</a></p>
+				</div>
+				<hr>
+			</div>	
+		</div>
+	</section>
+	<!-- ./Footer -->
     {% block scripts %}
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
