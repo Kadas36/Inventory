@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django_registration',
     'simple_history',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'

@@ -1,3 +1,4 @@
+ 
 from django.shortcuts import render, redirect
 from .models import Stock
 from .forms import StockForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm,CategoryCreateForm
@@ -30,6 +31,7 @@ def add_category(request):
 		return redirect('/')
 	context = {
 		"form": form,
+		"title":"Add Category"
 	}
 	return render(request, "store/add_item.html", context)
 
@@ -63,7 +65,8 @@ def update_items(request, pk):
             return redirect('/')
 
     context = {
-        'form':form
+        'form':form,
+		"title":"Update Item"
     }
     return render(request, 'store/add_item.html', context) 
 
@@ -80,6 +83,7 @@ def stock_detail(request, pk):
 	queryset = Stock.objects.get(id=pk)
 	context = {
 		"queryset": queryset,
+		"title":"Delete Item"
 	}
 	return render(request, "store/stock_detail.html", context)  
 
@@ -118,7 +122,7 @@ def receive_items(request, pk):
 		return redirect('/stock_detail/'+str(instance.id))
 		
 	context = {
-			"title": 'Reaceive ' + str(queryset.product_name),
+			"title": 'Receive ' + str(queryset.product_name),
 			"instance": queryset,
 			"form": form,
 			"username": 'Receive By: ' + str(request.user),
@@ -134,7 +138,7 @@ def reorder_level(request, pk):
 		instance.save()
 		messages.success(request, "Reorder level for " + str(instance.product_name) + " is updated to " + str(instance.alert_amount))
 
-		return redirect("/list_item/")
+		return redirect("/")
 	context = {
 			"instance": queryset,
 			"form": form,
@@ -156,5 +160,3 @@ def list_history(request):
 		'form': form
 	}
 	return render(request, 'store/history.html', context)
-
-

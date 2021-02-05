@@ -1,7 +1,10 @@
 from django import forms
 from .models import Stock,Category
+from crispy_forms.helper import FormHelper
 
 class StockForm(forms.ModelForm):
+  helper = FormHelper()
+  helper.form_show_labels = False
   class Meta:
     model = Stock
     fields = ['category', 'product_name', 'quantity']
@@ -31,12 +34,16 @@ class StockForm(forms.ModelForm):
     return product_name
 
 class CategoryCreateForm(forms.ModelForm):
-	class Meta:
-		model = Category
-		fields = ['name']
+  helper = FormHelper()
+  helper.form_show_labels = False
+  class Meta:
+    model = Category
+    fields = ['name']
 
 class StockSearchForm(forms.ModelForm):
-   class Meta:
+  helper = FormHelper()
+  helper.form_show_labels = False
+  class Meta:
      model = Stock
      fields = ['product_name'] 
 
@@ -57,6 +64,8 @@ class ReceiveForm(forms.ModelForm):
 		fields = ['received_quantity', 'receipient']     
 
 class ReorderLevelForm(forms.ModelForm):
-	class Meta:
-		model = Stock
-		fields = ['alert_amount']          
+  helper = FormHelper()
+  helper.form_show_labels = False
+  class Meta:
+    model = Stock
+    fields = ['alert_amount']          

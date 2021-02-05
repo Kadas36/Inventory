@@ -243,3 +243,7 @@ section .section-title {
     margin-top: 100px;
 }
 
+.item__button{
+    display: flex;
+}
+
